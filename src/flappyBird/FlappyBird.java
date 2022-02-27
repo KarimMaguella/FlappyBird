@@ -37,9 +37,11 @@ public class FlappyBird implements ActionListener, MouseListener
 		jframe.setResizable(false);
 		jframe.setVisible(true);
 		
+		// Create list of tubes, bird starting (x, y), the position of bird is WIDTH/3 and HEIGHT/2, respectively.
 		columns = new ArrayList<Rectangle>();
 		bird = new Rectangle(WIDTH/3, HEIGHT/2 - 10, 20, 20);
-		
+
+		// create 4 green tubes		
 		addColumn(true);
 		addColumn(true);
 		addColumn(true);
@@ -48,17 +50,21 @@ public class FlappyBird implements ActionListener, MouseListener
 		timer.start();
 	}
 	
-	public void addColumn(boolean starting)
+	public void addColumn(boolean initialise)
 	{
-		int space = 300;
+		// column/tube attributes
+		int space = 250 + rand.nextInt(150);
 		int width = 100;
 		int height = 50 + rand.nextInt(300);
 		
-		if(starting)
+		// this is to create the columns/tubes before the bird has started moving (they're not visible at spawn)
+		if(initialise)
 		{
-			//bottom column gen
-			columns.add(new Rectangle(WIDTH + width + (columns.size() * space) + 300, HEIGHT - height - 150, width, height));
-			//top column gen
+			// add each generated column to the "columns" ArrayList for later..
+			// bottom column, note that the 150 is the height of the ground..
+			columns.add(new Rectangle(WIDTH + width + (columns.size() * space) + 300, HEIGHT - 150 - height, width, height));
+
+			//top column
 			columns.add(new Rectangle(WIDTH + width + (columns.size() * space), 0, width, HEIGHT - height - space));
 		}
 		else
